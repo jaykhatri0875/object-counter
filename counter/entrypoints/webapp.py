@@ -1,4 +1,5 @@
 from io import BytesIO
+from PIL import Image
 from flask import Flask, request, jsonify
 from counter import config
 from counter.utils.logger_config import app_logger
@@ -39,14 +40,16 @@ def create_app():
 
             if uploaded_file and allowed_file(uploaded_file.filename):
                 model_name = request.form.get('model_name', "rfcn") # not used in current implementation
-                image = BytesIO()
                 uploaded_file_name = str(request.request_id) + str(uploaded_file.filename)
-                uploaded_file.save(os.path.join(app.config['UPLOAD_FOLDER'], uploaded_file_name))
+                upload_file_path = os.path.join(app.config['UPLOAD_FOLDER'], uploaded_file_name)
+                uploaded_file.save(upload_file_path) # inorder to save file to any given location
+
+                uploaded_file_img_bytes = uploaded_file.read()
 
                 if model_name == 'rfcn':
-                    count_response = count_action.execute(image, threshold)
-                    # deleting the file after usage
-                    os.remove(os.path.join(app.config['UPLOAD_FOLDER'], uploaded_file_name))
+                    count_response = count_action.execute(uploaded_file_img_bytes, threshold)
+                    # deleting the file after usage if required to do so
+                    # os.remove(os.path.join(app.config['UPLOAD_FOLDER'], uploaded_file_name))
                     # TODO: check respone before sending back
                     return jsonify(count_response)
                 else:
