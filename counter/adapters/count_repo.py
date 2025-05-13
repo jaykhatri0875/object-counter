@@ -1,6 +1,8 @@
 from typing import List
 
 from pymongo import MongoClient
+import psycopg2
+from psycopg2 import sql
 
 from counter.domain.models import ObjectCount
 from counter.domain.ports import ObjectCountRepo
@@ -54,3 +56,84 @@ class CountMongoDBRepo(ObjectCountRepo):
         for value in new_values:
             counter_col.update_one({'object_class': value.object_class}, {'$inc': {'count': value.count}}, upsert=True)
 
+
+class CountPostgresDBRepo(ObjectCountRepo):
+
+    def __init__(self, host, port, database, user, password):
+        self.__host = host
+        self.__port = port
+        self.__database = database
+        self.__user = user
+        self.__password = password
+    def __get_connection(self):
+        """Establishes and returns a connection to the PostgreSQL database."""
+        try:
+            conn = psycopg2.connect(
+                dbname=self.__database,
+                user=self.__user,
+                password=self.__password,
+                host=self.__host,
+                port=self.__port,
+            )
+            return conn
+        except psycopg2.Error as e:
+            print(f"Error connecting to PostgreSQL: {e}")
+            raise
+    def read_values(
+            self, object_classes: List[str] = None
+    ) -> List[ObjectCount]:
+        """Reads object counts from the PostgreSQL database."""
+        conn = self.__get_connection()
+        cursor = conn.cursor()
+        object_counts = []
+
+        try:
+            if object_classes:
+                query = sql.SQL(
+                    "SELECT object_class, count FROM object_counts WHERE object_class IN %s"
+                )
+                cursor.execute(query, (tuple(object_classes),))
+            else:
+                query = "SELECT object_class, count FROM object_counts"
+                cursor.execute(query)
+
+            rows = cursor.fetchall()
+            for row in rows:
+                object_counts.append(ObjectCount(row[0], row[1]))
+
+        except psycopg2.Error as e:
+            print(f"Error reading from PostgreSQL: {e}")
+            conn.rollback()
+            raise
+        finally:
+            cursor.close()
+            conn.close()
+
+        return object_counts
+
+    def update_values(self, new_values: List[ObjectCount]):
+        """Updates object counts in the PostgreSQL database."""
+        conn = self.__get_connection()
+        cursor = conn.cursor()
+
+        try:
+            for value in new_values:
+                query = sql.SQL(
+                    """
+                    INSERT INTO object_counts (object_class, count)
+                    VALUES (%s, %s)
+                    """
+                )
+                cursor.execute(
+                    query,
+                    (value.object_class, value.count, value.count),
+                )
+            conn.commit()
+
+        except psycopg2.Error as e:
+            print(f"Error updating PostgreSQL: {e}")
+            conn.rollback()
+            raise
+        finally:
+            cursor.close()
+            conn.close()
