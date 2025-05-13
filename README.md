@@ -26,6 +26,28 @@ chmod -R 777 tmp/rfcn_resnet101_coco_2018_01_28
 mkdir -p tmp/model/rfcn/1
 mv tmp/rfcn_resnet101_coco_2018_01_28/saved_model/saved_model.pb tmp/model/rfcn/1
 rm -rf tmp/rfcn_resnet101_coco_2018_01_28
+
+# Update the pipeline.config in the following sections if training 
+
+eval_input_reader {
+  label_map_path: "PATH_TO_BE_CONFIGURED/mscoco_label_map.pbtxt"
+  shuffle: false
+  num_readers: 1
+  tf_record_input_reader {
+    input_path: "PATH_TO_BE_CONFIGURED/mscoco_val.record"
+  }
+}
+
+train_input_reader {
+  label_map_path: "PATH_TO_BE_CONFIGURED/mscoco_label_map.pbtxt"
+  tf_record_input_reader {
+    input_path: "PATH_TO_BE_CONFIGURED/coco_train.record"
+  }
+}
+
+fine_tune_checkpoint: "PATH_TO_BE_CONFIGURED/model.ckpt"
+
+
 ```
 
 ## Setup and run Tensorflow Serving
@@ -36,6 +58,7 @@ rm -rf tmp/rfcn_resnet101_coco_2018_01_28
 cores_per_socket=`lscpu | grep "Core(s) per socket" | cut -d':' -f2 | xargs`
 num_sockets=`lscpu | grep "Socket(s)" | cut -d':' -f2 | xargs`
 num_physical_cores=$((cores_per_socket * num_sockets))
+
 
 docker rm -f tfserving
 docker run \
