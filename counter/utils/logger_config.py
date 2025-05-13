@@ -4,7 +4,7 @@ import logging
 app_logger = logging.getLogger(__name__)
 app_logger.setLevel(logging.DEBUG)
 
-# Create a file handler
+# Create a file handler - TODO: update log file path
 file_handler = logging.FileHandler('webapp.log')
 file_handler.setLevel(logging.DEBUG)
 
