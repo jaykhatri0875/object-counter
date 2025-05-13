@@ -34,7 +34,8 @@ class TFSObjectDetector(ObjectDetector):
 
     @staticmethod
     def __build_classes_dict():
-        with open('counter/adapters/mscoco_label_map.json') as json_file:
+        # TODO : mscoco_label_map.json to be moved to config folder
+        with open('counter/config/mscoco_label_map.json') as json_file:
             labels = json.load(json_file)
             return {label['id']: label['display_name'] for label in labels}
 
