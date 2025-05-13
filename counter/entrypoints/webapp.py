@@ -2,6 +2,7 @@ from io import BytesIO
 from flask import Flask, request, jsonify
 from counter import config
 from counter.utils.logger_config import app_logger
+import os
 import uuid
 
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
@@ -39,11 +40,22 @@ def create_app():
             if uploaded_file and allowed_file(uploaded_file.filename):
                 model_name = request.form.get('model_name', "rfcn") # not used in current implementation
                 image = BytesIO()
-                uploaded_file.save(image)
-                count_response = count_action.execute(image, threshold) # TODO : add model name as argument to be passed in ml service
-                # deleting the file after usage
+                uploaded_file_name = str(request.request_id) + str(uploaded_file.filename)
+                uploaded_file.save(os.path.join(app.config['UPLOAD_FOLDER'], uploaded_file_name))
 
-                return jsonify(count_response)
+                if model_name == 'rfcn':
+                    count_response = count_action.execute(image, threshold)
+                    # deleting the file after usage
+                    os.remove(os.path.join(app.config['UPLOAD_FOLDER'], uploaded_file_name))
+                    # TODO: check respone before sending back
+                    return jsonify(count_response)
+                else:
+                    # TODO : add other models
+                    message = {"message": "only supporting rfcn model.", "status_code": 200}
+                    return jsonify(message)
+            else:
+                message = {"message": "uploaded file is not allowed. please use 'png', 'jpg', 'jpeg' formats only.", "status_code": 200}
+                return jsonify(message)
 
         except Exception as e:
             app_logger.error(f"Error occurred while processing Request ID: {request.request_id}")
