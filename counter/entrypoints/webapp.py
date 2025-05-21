@@ -65,7 +65,23 @@ def create_app():
             error_message = {"error": str(e), "status_code": 400}
             return jsonify(error_message)
 
-    
+    @app.route('/prediction', methods=['POST'])
+    def run_prediction():
+        try:
+            if 'file' not in request.files:
+                return jsonify({'error': 'No file part'}), 400
+            threshold = float(request.form.get('threshold', 0.5)) # default value is 0.5
+            uploaded_file = request.files['file']
+
+            if uploaded_file.filename == '':
+                app_logger.error('blank name received')
+                return jsonify({'error': 'No selected file'}), 400
+
+        except Exception as e:
+            app_logger.error(f"Error occurred while processing Request ID: {request.request_id}")
+            error_message = {"error": str(e), "status_code": 400}
+            return jsonify(error_message
+
     return app
 
 if __name__ == '__main__':
