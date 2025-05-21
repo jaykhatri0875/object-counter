@@ -1,0 +1,14 @@
+FROM python:3.11
+RUN groupadd -r demo_user && useradd -r -m -g demo_user demo_user
+WORKDIR /app
+COPY . /app/
+
+RUN pip install --no-cache-dir -r requirements.txt
+
+RUN chown -R demo_user:demo_user /app
+
+USER demo_user
+
+EXPOSE 8000
+
+CMD ["uvicorn", "counter.manage:app", "--host", "0.0.0.0", "--port", "8000"]
