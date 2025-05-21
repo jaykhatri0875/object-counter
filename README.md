@@ -124,7 +124,14 @@ ENV=prod python -m counter.entrypoints.webapp
 $env:ENV = "prod"
 python -m counter.entrypoints.webapp
 ```
+## Build using Docker
 
+```shell script
+cd <folder_location>
+docker build DockerFile
+docker run -it <image tag>
+
+```
 ## Call the service
 
 ```shell script
