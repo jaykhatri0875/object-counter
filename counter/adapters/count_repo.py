@@ -121,7 +121,7 @@ class CountPostgresDBRepo(ObjectCountRepo):
                 query = sql.SQL(
                     """
                     INSERT INTO object_counts (object_class, count)
-                    VALUES (%s, %s)
+                    VALUES (%s, %s)     
                     """
                 )
                 cursor.execute(

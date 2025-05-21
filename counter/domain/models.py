@@ -1,14 +1,12 @@
 from dataclasses import dataclass
 from typing import List
 
-
 @dataclass
 class Box:
     xmin: float
     ymin: float
     xmax: float
     ymax: float
-
 
 @dataclass
 class Prediction:
@@ -22,8 +20,11 @@ class ObjectCount:
     object_class: str
     count: int
 
-
 @dataclass
 class CountResponse:
     current_objects: List[ObjectCount]
     total_objects: List[ObjectCount]
+
+@dataclass
+class PredictionsResponse:
+    predictions: List[Prediction]
