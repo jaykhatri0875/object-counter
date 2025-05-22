@@ -35,7 +35,7 @@ class GetPredictionObjects:
     def __init__(self, object_detector: ObjectDetector):
         self.__object_detector = object_detector
 
-    def execute(self, image, threshold) -> List:
+    def execute(self, image, threshold) -> PredictionsResponse:
         predictions = self.__find_valid_predictions(image, threshold)
         return PredictionsResponse(predictions= predictions)
 
