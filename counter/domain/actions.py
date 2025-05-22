@@ -31,7 +31,7 @@ class CountDetectedObjects:
             image = Image.open(image)
             draw(predictions, image, image_name)
 
-class GetPredictionsObject:
+class GetPredictionObjects:
     def __init__(self, object_detector: ObjectDetector):
         self.__object_detector = object_detector
 
