@@ -53,6 +53,15 @@ fine_tune_checkpoint: "PATH_TO_BE_CONFIGURED/model.ckpt"
 ## Setup and run Tensorflow Serving
 
 ```
+# setup model_config.config inside /tmp/model/ folder 
+
+model_config_list: {
+  config: {
+    name: "rfcn",
+    base_path: "/models/rfcn",
+    model_platform: "tensorflow"
+  }
+}
 
 # For unix systems
 cores_per_socket=`lscpu | grep "Core(s) per socket" | cut -d':' -f2 | xargs`
