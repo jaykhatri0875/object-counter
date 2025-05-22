@@ -147,6 +147,8 @@ docker run -it <image tag>
 ## Call the service
 
 ```shell script
+ curl -F "threshold=0.9" -F "file=@resources/images/food.jpg" http://0.0.0.0:5000/prediction
+ 
  curl -F "threshold=0.9" -F "file=@resources/images/boy.jpg" http://0.0.0.0:5000/object-count
  curl -F "threshold=0.9" -F "file=@resources/images/cat.jpg" http://0.0.0.0:5000/object-count
  curl -F "threshold=0.9" -F "file=@resources/images/food.jpg" http://0.0.0.0:5000/object-count 
