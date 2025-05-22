@@ -1,7 +1,7 @@
 from PIL import Image
 
 from counter.debug import draw
-from counter.domain.models import CountResponse, PredictionsResponse
+from counter.domain.models import CountResponse , PredictionsResponse
 from counter.domain.ports import ObjectDetector, ObjectCountRepo
 from counter.domain.predictions import over_threshold, count
 
@@ -32,10 +32,10 @@ class CountDetectedObjects:
             draw(predictions, image, image_name)
 
 class GetPredictionsObject:
-    def __init__(self):
-        pass
+    def __init__(self, object_detector: ObjectDetector):
+        self.__object_detector = object_detector
 
-    def execute(self, image, threshold) -> predictions:
+    def execute(self, image, threshold) -> List:
         predictions = self.__find_valid_predictions(image, threshold)
         return PredictionsResponse(predictions= predictions)
 
