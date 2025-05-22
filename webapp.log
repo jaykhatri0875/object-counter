@@ -11,3 +11,5 @@
 2025-05-22 13:51:34,550 - counter.utils.logger_config - INFO - Request ID: fa7b5dee-4752-44f8-8fa1-100764372009 - Request completed with status code: 200
 2025-05-22 13:51:46,337 - counter.utils.logger_config - INFO - Request ID: 6f7a428a-c4de-4af2-84c9-a5bcf22079e8 - Incoming request: POST /object-count
 2025-05-22 13:51:47,781 - counter.utils.logger_config - INFO - Request ID: 6f7a428a-c4de-4af2-84c9-a5bcf22079e8 - Request completed with status code: 200
+2025-05-22 18:25:02,567 - counter.utils.logger_config - INFO - Request ID: a39f4a81-5ec2-4f63-a4ec-f3fd18c2479c - Incoming request: POST /prediction
+2025-05-22 18:25:06,560 - counter.utils.logger_config - INFO - Request ID: a39f4a81-5ec2-4f63-a4ec-f3fd18c2479c - Request completed with status code: 200
