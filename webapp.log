@@ -1,0 +1,13 @@
+2025-05-22 13:20:44,216 - counter.utils.logger_config - INFO - Request ID: 0f1a65ea-2e08-4ddb-ac84-ff3582dfda2c - Incoming request: POST /object-count
+2025-05-22 13:20:44,218 - counter.utils.logger_config - ERROR - Error occurred while processing Request ID: 0f1a65ea-2e08-4ddb-ac84-ff3582dfda2c
+2025-05-22 13:20:44,218 - counter.utils.logger_config - INFO - Request ID: 0f1a65ea-2e08-4ddb-ac84-ff3582dfda2c - Request completed with status code: 200
+2025-05-22 13:21:04,041 - counter.utils.logger_config - INFO - Request ID: c8fe3b8a-a833-4c79-83bf-42d1449d8e19 - Incoming request: POST /object-count
+2025-05-22 13:21:04,042 - counter.utils.logger_config - ERROR - Error occurred while processing Request ID: c8fe3b8a-a833-4c79-83bf-42d1449d8e19
+2025-05-22 13:21:04,043 - counter.utils.logger_config - INFO - Request ID: c8fe3b8a-a833-4c79-83bf-42d1449d8e19 - Request completed with status code: 200
+2025-05-22 13:21:13,304 - counter.utils.logger_config - INFO - Request ID: fa88d620-1426-4c29-8785-549d93576e67 - Incoming request: POST /prediction
+2025-05-22 13:21:13,304 - counter.utils.logger_config - INFO - Request ID: fa88d620-1426-4c29-8785-549d93576e67 - Request completed with status code: 200
+2025-05-22 13:46:20,140 - counter.utils.logger_config - INFO - Request ID: 1070e4de-4233-4304-b539-bf6941d991ea - Incoming request: POST /object-count
+2025-05-22 13:51:32,594 - counter.utils.logger_config - INFO - Request ID: fa7b5dee-4752-44f8-8fa1-100764372009 - Incoming request: POST /object-count
+2025-05-22 13:51:34,550 - counter.utils.logger_config - INFO - Request ID: fa7b5dee-4752-44f8-8fa1-100764372009 - Request completed with status code: 200
+2025-05-22 13:51:46,337 - counter.utils.logger_config - INFO - Request ID: 6f7a428a-c4de-4af2-84c9-a5bcf22079e8 - Incoming request: POST /object-count
+2025-05-22 13:51:47,781 - counter.utils.logger_config - INFO - Request ID: 6f7a428a-c4de-4af2-84c9-a5bcf22079e8 - Request completed with status code: 200
