@@ -80,7 +80,7 @@ def create_app():
         except Exception as e:
             app_logger.error(f"Error occurred while processing Request ID: {request.request_id}")
             error_message = {"error": str(e), "status_code": 400}
-            return jsonify(error_message
+            return jsonify(error_message)
 
     return app
 
