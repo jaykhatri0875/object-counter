@@ -18,7 +18,6 @@ class FakeObjectDetector(ObjectDetector):
                            ),
                 ]
 
-
 class TFSObjectDetector(ObjectDetector):
     def __init__(self, host, port, model):
         self.url = f"http://{host}:{port}/v1/models/{model}:predict"
@@ -35,7 +34,7 @@ class TFSObjectDetector(ObjectDetector):
     @staticmethod
     def __build_classes_dict():
         # TODO : mscoco_label_map.json to be moved to config folder
-        with open('counter/config/mscoco_label_map.json') as json_file:
+        with open('counter/config_json/mscoco_label_map.json') as json_file:
             labels = json.load(json_file)
             return {label['id']: label['display_name'] for label in labels}
 
